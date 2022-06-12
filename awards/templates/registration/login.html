@@ -1,0 +1,51 @@
+{%extends 'django_registration/base.html'%}
+{%load bootstrap4%}
+
+{%block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 accounts-page-left">
+            <div class="row">
+                {% load static %}
+                <img src="https://androidnature.com/wp-content/uploads/2021/06/How-to-get-back-my-old-Instagram-account-1.jpg" alt="ig-image-1" srcset="" class="ig-image-accounts">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="box" >
+            {%if form.errors%}
+            <p>
+                Please confirm that your password and username are correct.
+            </p>
+            {%endif%}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center">
+                        Sign In
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form action="/accounts/login/" method="post">
+                        {%csrf_token%}
+                        {% for field in form %}
+                            {% bootstrap_field field %}
+                        {% endfor %}
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Login">
+                        </div>
+                        <input type="hidden" name="next" value="{{next}}">
+                    </form>
+                    <h6>Don't have an acount yet? <a class="btn btn-primary" href="/accounts/register"> sign in</a></h6>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-md-4"></div>
+
+    </div>
+
+</div>
+
+{%endblock%}
