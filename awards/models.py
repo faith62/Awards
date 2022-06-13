@@ -16,7 +16,10 @@ class Image(models.Model):
     # post = HTMLField(blank=True,null = True,)
     user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null = True,)
     post_date = models.DateTimeField(auto_now_add=True,blank=True,null = True,)
-    likes = models.IntegerField(blank=True,null = True,)
+    design = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    usability = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    content = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+    vote_submissions = models.IntegerField(default=0)
     url=models.CharField(max_length=80,blank=True,null = True,)
 
     def __str__(self):
@@ -39,8 +42,8 @@ class Image(models.Model):
         return image
 
     @classmethod
-    def search_by_image_category(cls,image_category):
-        images = cls.objects.filter(image_category__name__icontains=image_category)
+    def search_by_image_name(cls,image_name):
+        images = cls.objects.filter(image_name__name__icontains=image_name)
         return images
 
     class Meta:
@@ -60,7 +63,7 @@ class Stream(models.Model):
 
     def add_image(sender,instance, *args, **kwargs):
         image =instance
-        user =image.user
+        user =user
        
         stream =Stream(image=image,date =image.post_date,user=user )
         stream.save()
@@ -89,8 +92,8 @@ class Profile(models.Model):
         if created:
             Profile.objects.create(user=instance)
 
-    def save_user_profile(sender,instance, **kwargs):
-        instance.profile.save()
+    # def save_user_profile(sender,instance, **kwargs):
+    #     instance.profile.save()
 
     def save_profile(self):
         self.save()
@@ -98,6 +101,6 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
     post_save.connect(create_user_profile, sender=User)
-    post_save.connect(save_user_profile, sender=User)
+    # post_save.connect(save_user_profile, sender=User)
 
 post_save.connect(Stream.add_image,sender=Image)

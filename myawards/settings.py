@@ -146,3 +146,5 @@ UPLOADCARE = {
     'pub_key': 'demopublickey',
     'secret': 'demoprivatekey',
 }
+
+AUTH_PROFILE_MODULE = 'awards.Profile'

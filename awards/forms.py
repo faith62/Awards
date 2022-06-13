@@ -22,3 +22,7 @@ class EditProfileForm(forms.ModelForm):
         model = Profile
         fields = ('profile_photo','first_name','last_name','url', 'bio' )
 
+class VoteForm(forms.ModelForm):
+     class Meta:
+        model = Image
+        fields = ('design','usability','content')

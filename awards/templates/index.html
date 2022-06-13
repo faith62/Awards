@@ -6,14 +6,16 @@
 
 <div class="container-fluid" style="margin-top: 20px;">
     <div class="card-deck">
-        {% for image in images %}
+        {% for image_item in image_items %}
         <div class="card">
-            <a href="{% url 'projectdetails' image.id %}"><img class="card-img-top" src="{{image.pic.url}}" alt="Card image cap"></a>
+            <a href="{% url 'projectdetails' image_item.id %}"><img class="card-img-top" src="{{image_item.pic.url}}" alt="Card image_item cap"></a>
           <div class="card-body">
-            <h5 class="card-title">{{image.image_name}}</h5>
-            <p class="card-text">{{image.image_description}}.</p>
-            <a href=""><p class="card-text">{{image.url}}.</p></a>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <h5 class="card-title">{{image_item.image_name}}</h5>
+            
+            <p class="card-text"><small class="text-muted">{{ image_item.post_date}}</small></p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">By {{image_item.user}}</small>
           </div>
         </div>
        {% endfor %}

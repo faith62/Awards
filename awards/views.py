@@ -1,11 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from requests import request
 
-from awards.forms import AwardsImageForm, EditProfileForm
-from .models import Image, Profile
+from awards.forms import AwardsImageForm, EditProfileForm, VoteForm
+from .models import Image, Profile, Stream
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.urls import resolve #help identify url name
+from django.urls import resolve, reverse #help identify url name
 
 
 
@@ -13,10 +15,17 @@ from django.urls import resolve #help identify url name
 @login_required(login_url='/accounts/login/')
 def index(request):
     user = request.user
-    images = Image.get_all_images().order_by('-post_date')  
-    image_items = Image.objects.all().order_by('-post_date') #selecting
-    return render(request,'index.html',{'images':images,'image_items':image_items,})
+    images= Stream.objects.filter(user=user)  #get all stream objects created by user
+    # profile = Profile.objects.get(user=user)
 
+    groups_ids= [] #create empty dict
+
+    for image in images:
+        groups_ids.append(image.image_id)
+    
+    image_items = Image.objects.all().order_by('-post_date') #selecting
+        
+    return render(request,'index.html',{'image_items':image_items,})
 @login_required(login_url='/accounts/login/')
 def ProjectDetails(request,image_id):
     image = get_object_or_404(Image, id=image_id)
@@ -43,7 +52,7 @@ def new_image(request):
 
 def UserProfile(request, username):
     user = get_object_or_404(User, username=username)
-    profile = Profile.objects.get(user=user)
+    # profile = Profile.objects.get(user=user)
     url_name= resolve(request.path).url_name
 
     if url_name == "profile":
@@ -61,7 +70,7 @@ def UserProfile(request, username):
     page_number = request.GET.get('page')
     images_paginator= paginator.get_page(page_number)
 
-    return render(request,'profile.html',{'images':images_paginator, 'profile':profile, 'url_name':url_name,'image_count':image_count,})
+    return render(request,'profile.html',{'images':images_paginator,  'url_name':url_name,'image_count':image_count,})
 
 
 @login_required(login_url='/accounts/login/')
@@ -86,3 +95,31 @@ def EditProfile(request):
 	
 	return render(request, 'edit_profile.html', {'form':form,})
 
+@login_required(login_url='/accounts/login')
+def project_review(request,image_id):
+   
+    image = get_object_or_404(Image, id=image_id)
+    avarage_score = round(((image.design + image.usability + image.content)/3),2)
+    if request.method == 'POST':
+        vote_form = VoteForm(request.POST)
+        if vote_form.is_valid():
+            image.vote_submissions+=1
+            if image.design == 0:
+                image.design = int(request.POST['design'])
+            else:
+                image.design = (image.design + int(request.POST['design']))/2
+            if image.usability == 0:
+                image.usability = int(request.POST['usability'])
+            else:
+                image.usability = (image.usability + int(request.POST['usability']))/2
+            if image.content == 0:
+                image.content = int(request.POST['content'])
+            else:
+                image.content = (image.content + int(request.POST['usability']))/2
+
+            image.save()
+            return redirect('projectdetails',image_id)
+    else:
+        vote_form = VoteForm()
+
+    return HttpResponseRedirect(reverse('projectdetails',args=[image.id]))

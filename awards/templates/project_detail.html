@@ -10,8 +10,40 @@
           <img class="card-img-top" src="{{ image.pic.url }}" width="800" height="600" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{ image.image_name }}</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text">{{image.image_description}}.</p>           
+            <a class="btn btn-success" href="{{ image.url }}"> Visit Site</a>
             <p class="card-text"><small class="text-muted">{{ image.post_date }}</small></p>
+            <div class="row">
+              <div class="col-md-4">Design <span class="badge badge-pill badge-secondary">{{image.design}}</span></div>
+              <div class="col-md-4">Usability <span class="badge badge-pill badge-info">{{image.usability}}</span></div>
+              <div class="col-md-4">Content <span class="badge badge-pill badge-danger">{{image.content}}</span></div>
+            </div>
+            <h3 style="margin:20px;">Average Score <span class="badge badge-primary">{{average_score}}</span></h3>
+            <a href="" class="btn btn-success btn-rounded btn-block" data-toggle="modal"
+              data-target="#{{image.id}}">Vote</a>
+              <!-- Modal -->
+              <div class="modal fade bd-example-modal-md" id="{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="projectTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-center" id="projectTitle">Rate Project</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form class="{% url 'project_review' image.pk %}" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form vote_form%}
+      
+                        <div class="form-group">
+                          <input type="submit" class="btn mx-auto" value="Submit Vote">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <a href=""><i class="material-icons">save_alt</i> Save</a>
                 <a href="{%url 'indexPage'%}"><i class="material-icons">arrow_back</i> Back</a> 
           </div>
