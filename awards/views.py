@@ -9,7 +9,10 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.urls import resolve, reverse #help identify url name
 
-
+#api
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -123,3 +126,16 @@ def project_review(request,image_id):
         vote_form = VoteForm()
 
     return HttpResponseRedirect(reverse('projectdetails',args=[image.id]))
+
+#api
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_profile = Profile.objects.all()
+        serializers = ProfileSerializer(all_profile, many=True)
+        return Response(serializers.data)
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_project = Image.objects.all()
+        serializers = ProjectSerializer(all_project, many=True)
+        return Response(serializers.data)

@@ -9,6 +9,8 @@ urlpatterns = [
     path('new/image', views.new_image, name='new-image'),
     path('<username>/',views.UserProfile, name='profile'),
     path('profile/edit/', views.EditProfile, name='editprofile'),
+    path('api/profile/', views.ProfileList.as_view()),
+    path('api/project/', views.ProjectList.as_view()),
 
 ]
 if settings.DEBUG:

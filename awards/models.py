@@ -84,6 +84,7 @@ class Profile(models.Model):
     profile_photo=models.ImageField(upload_to='profile/',blank=True,null = True,)
     url=models.CharField(max_length=50,blank=True,null = True,)
     created =models.DateField(auto_now_add=True,blank=True,null = True,)
+    all_images = models.ForeignKey('IMage',on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.first_name
