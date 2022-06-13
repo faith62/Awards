@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'bootstrap4',    
     'cloudinary_storage',  
     'cloudinary',
+    'bootstrap_modal_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

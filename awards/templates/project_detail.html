@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{%load bootstrap4%}
 
 {% block content %}
 {{block.super}}
@@ -32,9 +33,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <form class="{% url 'project_review' image.pk %}" action="" method="post" enctype="multipart/form-data">
+                      <form class="{% url 'projectdetails' image.id %}" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {% bootstrap_form vote_form%}
+                        {% for field in form %}
+                          {% bootstrap_field field %}
+                        {% endfor %}
       
                         <div class="form-group">
                           <input type="submit" class="btn mx-auto" value="Submit Vote">
