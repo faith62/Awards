@@ -11,13 +11,13 @@ def user_directory_path(instance, filename):
 # Create your models here.
 class Image(models.Model):    
     image_name =models.CharField(max_length=50)
-    image_description =models.CharField(max_length=50)
+    image_description =models.CharField(max_length=500)
     pic=models.ImageField(upload_to=user_directory_path,blank=True,null = True)
     # post = HTMLField(blank=True,null = True,)
     user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null = True,)
     post_date = models.DateTimeField(auto_now_add=True,blank=True,null = True,)
     likes = models.IntegerField(blank=True,null = True,)
-    url=models.CharField(max_length=50,blank=True,null = True,)
+    url=models.CharField(max_length=80,blank=True,null = True,)
 
     def __str__(self):
         return str(self.id)
@@ -56,7 +56,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True,null = True,)
     first_name = models.CharField(max_length=50,blank=True,null = True,)
     last_name = models.CharField(max_length=50,blank=True,null = True,)
-    bio=models.CharField(max_length=50)
+    bio=models.CharField(max_length=500)
     profile_photo=models.ImageField(upload_to='profile/',blank=True,null = True,)
     url=models.CharField(max_length=50,blank=True,null = True,)
     created =models.DateField(auto_now_add=True,blank=True,null = True,)
@@ -79,3 +79,4 @@ class Profile(models.Model):
     # post_save.connect(create_user_profile, sender=User)
     # post_save.connect(save_user_profile, sender=User)
 
+ 

@@ -6,48 +6,24 @@
 
 <div class="container">   
    
-    <div class="media-left">
+    <div class="media-left]">
         <figure class="image is-128x128">
-            <img class="is-rounded" src=" https://bulma.io/images/placeholders/128x128.png" style="border-radius: 50%; width:128px; height: 128px;" >
+            <img class="is-rounded" src="{% if profile.profile_photo %}{{ profile.profile_photo.url }}{% else%} https://bulma.io/images/placeholders/128x128.png {% endif %}"style="border-radius: 50%; width:128px; height: 128px;" >
         </figure>
     </div>
     <div class="media-right">
         <div>
-            <h1 class="title"> John Doe</h1>
-            <h2 class="subtitle is_3">@johndoe</h2>
-            <p class="subtitle is-6">Bio:</p>
+          <h1 class="title">{% if profile.first_name %}{{ profile.first_name}} {{ profile.last_name}} {% endif %}</h1>
+          <h2 class="subtitle is_3">@{{ profile.user}}</h2>
+          <p class="subtitle is-6">Bio:{% if profile.bio %}{{ profile.bio }} {% endif%}</p>
+          {% if user.is_authenticated and user == profile.user %}
+          <a  class="btn button is-success" href="{% url 'editprofile' %}">Edit Profile</a>
+          {% endif %}
           
-            <a  class="btn button is-success" href="">Edit Profile</a>
-         
-            
-            <button class="button is-success">Follow</button>
         </div>
     </div>
      <div class="container"> 
-    <nav class="level is-mobile">
-        
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Posts</p>
-            <p class="title">200</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Following</p>
-            <p class="title">300</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Followers</p>
-            <p class="title">20</p>
-          </div>
-        </div>
-        
-        
-    </nav>
-    
+
 
     
     </div>
@@ -57,30 +33,18 @@
     <section>
         <div class="container" style="margin-top: 20px;">
             <div class="card-deck">
+              {% for image in images %}
                 <div class="card">
-                  <img class="card-img-top" src="https://bulma.io/images/placeholders/128x128.png" alt="Card image cap">
+                  <img class="card-img-top" src="{{ image.pic.url }}"  alt="Card image cap">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <h5 class="card-title">{{ image.image_name }}</h5>
+                    <p class="card-text">{{ image.image_description }}</p>
+                    <p class="card-text"><small class="text-muted">{{ image.post_date }}</small></p>
                   </div>
                 </div>
-                <div class="card">
-                  <img class="card-img-top" src="https://bulma.io/images/placeholders/128x128.png" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="https://bulma.io/images/placeholders/128x128.png" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
+
+              {% endfor %}
+                
               </div>
         </div>
         
