@@ -52,6 +52,27 @@ class Image(models.Model):
     def delete_image(self):
         self.delete()
 
+class Stream(models.Model):
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE,)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,)
+    date =models.DateTimeField()
+
+    def add_image(sender,instance, *args, **kwargs):
+        image =instance
+        user =image.user
+       
+        stream =Stream(image=image,date =image.post_date,user=user )
+        stream.save()
+
+    
+    def save_stream(self):
+        self.save()
+
+    def delete_stream(self):
+        self.delete()
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True,null = True,)
     first_name = models.CharField(max_length=50,blank=True,null = True,)
@@ -68,15 +89,15 @@ class Profile(models.Model):
         if created:
             Profile.objects.create(user=instance)
 
-    # def save_user_profile(sender,instance, **kwargs):
-    #     instance.profile.save()
+    def save_user_profile(sender,instance, **kwargs):
+        instance.profile.save()
 
-    # def save_profile(self):
-    #     self.save()
+    def save_profile(self):
+        self.save()
 
-    # def delete_profile(self):
-    #     self.delete()
-    # post_save.connect(create_user_profile, sender=User)
-    # post_save.connect(save_user_profile, sender=User)
+    def delete_profile(self):
+        self.delete()
+    post_save.connect(create_user_profile, sender=User)
+    post_save.connect(save_user_profile, sender=User)
 
- 
+post_save.connect(Stream.add_image,sender=Image)
