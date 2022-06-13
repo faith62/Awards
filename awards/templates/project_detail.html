@@ -7,11 +7,13 @@
 <div class="container" style="margin-top: 20px;">
     <div class="card-deck">
         <div class="card">
-          <img class="card-img-top" src="https://bulma.io/images/placeholders/128x128.png" width="800" height="600" alt="Card image cap">
+          <img class="card-img-top" src="{{ image.pic.url }}" width="800" height="600" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{ image.image_name }}</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p class="card-text"><small class="text-muted">{{ image.post_date }}</small></p>
+            <a href=""><i class="material-icons">save_alt</i> Save</a>
+                <a href="{%url 'indexPage'%}"><i class="material-icons">arrow_back</i> Back</a> 
           </div>
         </div>
        

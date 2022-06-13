@@ -11,7 +11,7 @@ def user_directory_path(instance, filename):
 # Create your models here.
 class Image(models.Model):    
     image_name =models.CharField(max_length=50)
-    image_caption =models.CharField(max_length=50)
+    image_description =models.CharField(max_length=50)
     pic=models.ImageField(upload_to=user_directory_path,blank=True,null = True)
     # post = HTMLField(blank=True,null = True,)
     user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null = True,)
@@ -24,6 +24,24 @@ class Image(models.Model):
 
     def get_absolute_url(self):
         return reverse('imagedetails',args=[str(self.id)])#clickto image get to imagedetails url
+    @classmethod
+    def update_image(cls, id ,image_name, image_description ,url,pic,user,):
+        update = cls.objects.filter(id = id).update(image_name=image_name, image_description=image_description, pic=pic, user=user)
+ 
+    @classmethod
+    def get_all_images(cls):
+        images = cls.objects.all()
+        return images
+
+    @classmethod
+    def get_image_by_id(cls,id):
+        image = cls.objects.filter(id= id).all()
+        return image
+
+    @classmethod
+    def search_by_image_category(cls,image_category):
+        images = cls.objects.filter(image_category__name__icontains=image_category)
+        return images
 
     class Meta:
         ordering = ['image_name']
@@ -50,14 +68,14 @@ class Profile(models.Model):
         if created:
             Profile.objects.create(user=instance)
 
-    def save_user_profile(sender,instance, **kwargs):
-        instance.profile.save()
+    # def save_user_profile(sender,instance, **kwargs):
+    #     instance.profile.save()
 
-    def save_profile(self):
-        self.save()
+    # def save_profile(self):
+    #     self.save()
 
-    def delete_profile(self):
-        self.delete()
-    post_save.connect(create_user_profile, sender=User)
-    post_save.connect(save_user_profile, sender=User)
+    # def delete_profile(self):
+    #     self.delete()
+    # post_save.connect(create_user_profile, sender=User)
+    # post_save.connect(save_user_profile, sender=User)
 
