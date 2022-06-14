@@ -6,9 +6,9 @@
 
 <div class="container">   
    
-    <div class="media-left]">
+    <div class="media-left">
         <figure class="image is-128x128">
-            <img class="is-rounded" src="{% if profile.profile_photo %}{{ profile.profile_photo.url }}{% else%} https://bulma.io/images/placeholders/128x128.png {% endif %}"style="border-radius: 50%; width:128px; height: 128px;" >
+            <img class="is-rounded" src="{% if profile.profile_photo %}{{ profile.profile_photo.url }}{% else%} https://bulma.io/images/placeholders/128x128.png {% endif %}"style="border-radius: 50%; width:128px; height: 128px;float:left;" >
         </figure>
     </div>
     <div >
@@ -16,12 +16,13 @@
           
         </div>
     </div>
-    <div class="container"> 
+    <div class="container" style="margin-left: 20px;">
+     
       <h1>{{ profile.first_name}} {{ profile.last_name}} </h1>
       <h2 >@{{ profile.user}}</h2>
       <p >Bio:{{ profile.bio }} </p>
       {% if user.is_authenticated and user == profile.user %}
-      <a  class="btn btn-primary" href="{% url 'editprofile' %}">Edit Profile</a>
+      <a  class="btn btn-success" href="{% url 'editprofile' %}">Edit Profile</a>
       {% endif %}
      
       

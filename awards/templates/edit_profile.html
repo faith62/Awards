@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+        
+{% block content %}
+<div class="container">
+    <div class="column is-mobile ">
+        <div class="column is-half is-offset-one-quarter"></div>
+            <form method="post"  enctype ="multipart/form-data" action="" role="form" >
+                {% csrf_token%}
+            <h3 class="title is-3">Edit Profile</h3>
+
+                <div class="field">
+                    <label class="label is-medium">Choose profile picture</label>
+                    <div class="control">
+                        {{form.profile_photo}} 
+                    </div>                                      
+                </div>
+
+                <div class="field">
+                    <label class="label is-medium">First Name</label>
+                    <div class="control">
+                        {{form.first_name}} 
+                    </div>                                      
+                </div>
+                <div class="field">
+                    <label class="label is-medium">Last Name</label>
+                    <div class="control">
+                        {{form.last_name}} 
+                    </div>                                   
+                </div>
+                <div class="field">
+                    <label class="label is-medium">URL</label>
+                    <div class="control">
+                        {{form.url}} 
+                    </div>                                      
+                </div>
+                <div class="field">
+                    <label class="label is-medium">Bio</label>
+                    <div class="control">
+                        {{form.bio}} 
+                    </div>                                      
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" value="login" class="button is-success">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
