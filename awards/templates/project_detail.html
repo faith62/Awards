@@ -20,10 +20,9 @@
               <div class="col-md-4">Content <span class="badge badge-pill badge-danger">{{image.content}}</span></div>
             </div>
             <h3 style="margin:20px;">Average Score <span class="badge badge-primary">{{average_score}}</span></h3>
-            <a href="" class="btn btn-success btn-rounded btn-block" data-toggle="modal"
-              data-target="#{{image.id}}">Vote</a>
+            <a href="" class="btn btn-success btn-rounded btn-block"id="display" data-bs-toggle="modal" data-bs-target="#exampleModal{{image.id}}">Vote</a>
               <!-- Modal -->
-              <div class="modal fade bd-example-modal-md" id="{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="projectTitle" aria-hidden="true">
+              <div class="modal fade bd-example-modal-md"  id="exampleModal{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="projectTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">

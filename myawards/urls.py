@@ -18,6 +18,8 @@ from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from django_registration.backends.one_step.views import RegistrationView
 
+from rest_framework.authtoken.views import obtain_auth_token
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('awards.urls')),
@@ -26,4 +28,5 @@ urlpatterns = [
     path('accounts/register/',RegistrationView.as_view(success_url='/accounts/login/')),
     path('accounts/profile/', auth_views.LoginView.as_view(template_name='content/index.html')),  
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/login.html')),
+    path('api-token-auth/', obtain_auth_token)
 ]

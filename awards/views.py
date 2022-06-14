@@ -30,13 +30,6 @@ def index(request):
     image_items = Image.objects.all().order_by('-post_date') #selecting
         
     return render(request,'index.html',{'image_items':image_items,})
-@login_required(login_url='/accounts/login/')
-def ProjectDetails(request,image_id):
-    image = get_object_or_404(Image, id=image_id)
-    user=request.user
-   
-
-    return render(request,'project_detail.html',{'image':image, })
 
 @login_required(login_url='/accounts/login/')
 def new_image(request):
@@ -46,7 +39,7 @@ def new_image(request):
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
-            image.save()
+            # image.save()
         return redirect('indexPage')
 
     else:
@@ -56,7 +49,7 @@ def new_image(request):
 
 def UserProfile(request, username):
     user = get_object_or_404(User, username=username)
-    # profile = Profile.objects.get(user=user)
+    profile = Profile.objects.get(user=user)
     url_name= resolve(request.path).url_name
 
     if url_name == "profile":
@@ -74,7 +67,7 @@ def UserProfile(request, username):
     page_number = request.GET.get('page')
     images_paginator= paginator.get_page(page_number)
 
-    return render(request,'profile.html',{'images':images_paginator,  'url_name':url_name,'image_count':image_count,})
+    return render(request,'profile.html',{'images':images_paginator,  'url_name':url_name,'profile':profile,'image_count':image_count,})
 
 
 @login_required(login_url='/accounts/login/')
@@ -98,15 +91,24 @@ def EditProfile(request):
 
 	
 	return render(request, 'edit_profile.html', {'form':form,})
+# @login_required(login_url='/accounts/login/')
+# def ProjectDetails(request,image_id):
+#     image = get_object_or_404(Image, id=image_id)
+#     user=request.user
+   
+
+#     return render(request,'project_detail.html',{'image':image, })
 
 @login_required(login_url='/accounts/login')
-def project_review(request,image_id):
+def ProjectDetails(request,image_id):
    
     image = get_object_or_404(Image, id=image_id)
-    avarage_score = round(((image.design + image.usability + image.content)/3),2)
+   
+    average_score = round(((image.design + image.usability + image.content)/3),2)
+
     if request.method == 'POST':
-        vote_form = VoteForm(request.POST)
-        if vote_form.is_valid():
+        form = VoteForm(request.POST)
+        if form.is_valid():
             image.vote_submissions+=1
             if image.design == 0:
                 image.design = int(request.POST['design'])
@@ -121,12 +123,13 @@ def project_review(request,image_id):
             else:
                 image.content = (image.content + int(request.POST['usability']))/2
 
-            image.save()
+            # image.save()
             return redirect('projectdetails',image_id)
     else:
-        vote_form = VoteForm()
+        form = VoteForm()
 
-    return HttpResponseRedirect(reverse('projectdetails',args=[image.id]))
+    return render(request,'project_detail.html',{'image':image, 'form':form,'average_score':average_score})
+
 
 #api
 class ProfileList(APIView):

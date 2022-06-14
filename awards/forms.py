@@ -4,7 +4,7 @@ from .models import  Image, Profile
 class AwardsImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        exclude = ['profile', 'pub_date']
+        exclude = ['profile', 'pub_date','design','usability','content','vote_submissions']
         widgets = {
             'image_name':forms.TextInput(),
             'image_caption':forms.TextInput(),

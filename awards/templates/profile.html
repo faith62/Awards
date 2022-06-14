@@ -11,20 +11,20 @@
             <img class="is-rounded" src="{% if profile.profile_photo %}{{ profile.profile_photo.url }}{% else%} https://bulma.io/images/placeholders/128x128.png {% endif %}"style="border-radius: 50%; width:128px; height: 128px;" >
         </figure>
     </div>
-    <div class="media-right">
+    <div >
         <div>
-          <h1 class="title">{% if profile.first_name %}{{ profile.first_name}} {{ profile.last_name}} {% endif %}</h1>
-          <h2 class="subtitle is_3">@{{ profile.user}}</h2>
-          <p class="subtitle is-6">Bio:{% if profile.bio %}{{ profile.bio }} {% endif%}</p>
-          {% if user.is_authenticated and user == profile.user %}
-          <a  class="btn button is-success" href="{% url 'editprofile' %}">Edit Profile</a>
-          {% endif %}
           
         </div>
     </div>
-     <div class="container"> 
-
-
+    <div class="container"> 
+      <h1>{{ profile.first_name}} {{ profile.last_name}} </h1>
+      <h2 >@{{ profile.user}}</h2>
+      <p >Bio:{{ profile.bio }} </p>
+      {% if user.is_authenticated and user == profile.user %}
+      <a  class="btn btn-primary" href="{% url 'editprofile' %}">Edit Profile</a>
+      {% endif %}
+     
+      
     
     </div>
 

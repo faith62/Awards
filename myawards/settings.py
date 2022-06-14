@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'bootstrap_modal_forms',
     'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,6 +143,13 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dgrjyra6k',
     'API_KEY': '748511361159413',
     'API_SECRET': 'bn0udwsD1_RzIs8Im7u_BYe26CE'
+}
+LOGIN_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 UPLOADCARE = {
