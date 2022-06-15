@@ -1,3 +1,4 @@
+from email import message
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from requests import request
@@ -130,6 +131,18 @@ def ProjectDetails(request,image_id):
         form = VoteForm()
 
     return render(request,'project_detail.html',{'image':image, 'form':form,'average_score':average_score})
+
+def search_image(request):
+    if 'image' in request.GET and request.GET ["image"]:
+        search_term = request.GET.get("image")
+        searched_images = Image.search_by_image_name(search_term)
+        message= f'{search_term}'
+
+        return render(request, 'search.html', {"message":message, "images":searched_images})
+
+    else:
+        message = "No search results yet!"
+        return render (request, 'search.html', {"message": message})
 
 
 #api

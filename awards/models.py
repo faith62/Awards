@@ -42,9 +42,9 @@ class Image(models.Model):
         return image
 
     @classmethod
-    def search_by_image_name(cls,image_name):
-        images = cls.objects.filter(image_name__name__icontains=image_name)
-        return images
+    def search_by_image_name(cls,search_term):
+        image = cls.objects.filter(image_name__contains=search_term)
+        return image
 
     class Meta:
         ordering = ['image_name']
