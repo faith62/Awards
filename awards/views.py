@@ -34,12 +34,13 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 def new_image(request):
     current_user = request.user
+    image =Image.objects.all()
     if request.method == 'POST':
         form = AwardsImageForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
-            # image.save()
+            image.save()
         return redirect('indexPage')
 
     else:
@@ -157,3 +158,4 @@ class ProjectList(APIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+

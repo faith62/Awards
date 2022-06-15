@@ -61,12 +61,12 @@ class Stream(models.Model):
     image = models.ForeignKey(Image,on_delete=models.CASCADE,)
     date =models.DateTimeField()
 
-    def add_image(sender,instance, *args, **kwargs):
-        image =instance
-        user =user
+    # def add_image(sender,instance, *args, **kwargs):
+    #     # image =instance
+    #     # user =Image.user
        
-        stream =Stream(image=image,date =image.post_date,user=user )
-        stream.save()
+    #     # stream =Stream(image=image,date =Image.post_date,user=user )
+    #     stream.save()
 
     
     def save_stream(self):
@@ -104,4 +104,4 @@ class Profile(models.Model):
     post_save.connect(create_user_profile, sender=User)
     # post_save.connect(save_user_profile, sender=User)
 
-post_save.connect(Stream.add_image,sender=Image)
+# post_save.connect(Stream.add_image,sender=Image)

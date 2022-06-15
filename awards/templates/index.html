@@ -8,25 +8,17 @@
     <!-- Adding a search form  -->
     <div class="col-sm-8 col-md-8 " style="margin: 4px auto;" >
 
-      <form role="search" action="">
-        {%csrf_token%}
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="&#xf3ee; Search by category"name="image_category">
-          <div class="input-group-btn">
-            <button class="btn btn-default" style="color:white;" type="submit"><i class="glyphicon glyphicon-search"></i><i class="glyphicon glyphicon-search"></i></button>
-          </div>
-        </div>
-        
-
-      </form>
+     
     </div>
   </div>
 </div>
 
 <div class="container-fluid" style="margin-top: 20px;">
-    <div class="card-deck">
-        {% for image_item in image_items %}
-        <div class="card">
+  <div class="row">
+    {% for image_item in image_items %}
+    <div class="col-md-4 main-page d-flex">
+     
+        <div class="card card-cascade wider flex-fill">
             <a href="{% url 'projectdetails' image_item.id %}"><img class="card-img-top" src="{{image_item.pic.url}}" alt="Card image_item cap"></a>
           <div class="card-body">
             <h5 class="card-title">{{image_item.image_name}}</h5>
@@ -37,7 +29,9 @@
             <small class="text-muted">By {{image_item.user}}</small>
           </div>
         </div>
-       {% endfor %}
+      
       </div>
-</div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}
