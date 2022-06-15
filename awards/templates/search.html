@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid">
+<div class="container">
 
   <div class="row heading" style="margin-left:20px;">
     {% if images%}
@@ -10,14 +10,12 @@
     {% endif %}
 
   </div>
- 
-
   <div class="row">
     {% for image in images %}
     <div class="col-md-4 main-page d-flex">
      
         <div class="card card-cascade wider flex-fill">
-            <a href="{% url 'projectdetails' image_item.id %}"><img class="card-img-top" src="{{image_item.pic.url}}" alt="Card image_item cap"></a>
+            <a href="{% url 'projectdetails' image.id %}"><img class="card-img-top" src="{{image.pic.url}}" alt="Card image_item cap"></a>
           <div class="card-body">
             <h5 class="card-title">{{image.image_name}}</h5>
             
@@ -26,18 +24,14 @@
           <div class="card-footer">
             <small class="text-muted">By {{image.user}}</small>
           </div>
-        </div>
-      
-      </div>
-      {% endfor %}
+        </div>      
+      </div>    
+    </div>  
+    {% empty %}
+    <div class="row">
+      <h1 class="text-center"> No Images Yet</h1>
     </div>
-  </div>
-
-  {% empty %}
-  <div class="row">
-    <h1 class="text-center"> No Images Yet</h1>
-  </div>
-  {% endfor %}
-  
+    {% endfor %}
+  </div>  
 </div>
 {% endblock %}
