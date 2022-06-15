@@ -4,15 +4,8 @@
 {%block content%}
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 accounts-page-left">
-            <div class="row">
-                {% load static %}
-                <img src="https://app.honeysuite.co/img/ill-step.svg" alt="ig-image-1" srcset="" class="ig-image-accounts">
-            </div>
-        </div>
-
-        <div class="col-md-4">
+   
+        <div>
             {%if form.errors%}
             <p>
                 Please confirm that your information is correct.
@@ -37,9 +30,7 @@
             </div>
         </div>
 
-        <div class="col-md-4"></div>
-    </div>
-
+      
 </div>
 
 {%endblock%}
