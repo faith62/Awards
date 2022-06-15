@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+
+{{block.super}}
 <div class="container">
 
   <div class="row heading" style="margin-left:20px;">
@@ -11,6 +14,7 @@
 
   </div>
   <div class="row">
+    {% if images %}
     {% for image in images %}
     <div class="col-md-4 main-page d-flex">
      
@@ -26,12 +30,9 @@
           </div>
         </div>      
       </div>    
-    </div>  
-    {% empty %}
-    <div class="row">
-      <h1 class="text-center"> No Images Yet</h1>
-    </div>
+    </div>      
     {% endfor %}
+    {% endif %}
   </div>  
 </div>
 {% endblock %}

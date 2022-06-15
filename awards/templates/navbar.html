@@ -13,7 +13,7 @@
          
         </li>
         {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </a>
@@ -31,14 +31,19 @@
         {% endif %}
         
       </ul>
-      <a href="{% url 'profile' request.user %}" class="navbar-item">             
-        Profile - <strong>{{ request.user }}</strong>
-      </a>
+      <ul class="navbar-nav mr-auto" style="margin-right:10% ;">
+        <li>
+          <a href="{% url 'profile' request.user %}" class="navbar-item">             
+            Profile - <strong>{{ request.user }}</strong>
+          </a>
+        </li>
+      </ul>
+      
       <a href=""></a>
       <form class="form-inline my-2 my-lg-0" action="{% url 'search_results' %}">
        
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>
   </nav>

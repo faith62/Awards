@@ -1,6 +1,6 @@
 # Awards
 
-Instagram is an American photo and video sharing social networking service founded in 2010 by Kevin Systrom and Mike Krieger, and later acquired by Facebook Inc.. The app allows users to upload media that can be edited with filters and organized by hashtags and geographical tagging
+Awwwards are the Website Awards that recognize and promote the talent and effort of the best developers, designers and web agencies in the world.
 
 ### By Faith Chemutai ,15/06/2022
 ## Setup/instalation Requirements

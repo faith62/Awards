@@ -132,13 +132,15 @@ def ProjectDetails(request,image_id):
 
     return render(request,'project_detail.html',{'image':image, 'form':form,'average_score':average_score})
 
-def search_image(request):
-    if 'image' in request.GET and request.GET ["image"]:
-        search_term = request.GET.get("image")
-        searched_images = Image.search_by_image_name(search_term)
-        message= f'{search_term}'
+def search_results(request):
+    images_search= Image.objects.all()
 
-        return render(request, 'search.html', {"message":message, "images":searched_images})
+    if 'image_name' in request.GET and request.GET ["image_name"]:
+        search_term = request.GET.get("image_name")
+        searched_images = Image.search_by_image_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html', {"message":message, "images":searched_images,'images_search':images_search})
 
     else:
         message = "No search results yet!"

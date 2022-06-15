@@ -4,7 +4,8 @@
 {{block.super}}
 <div class="jumbotron jumbotron-fluid">
   <div class="container " style="text-align:center ;">
-    <h2 >“A picture can tell a thousand words, but a few words can change it's story.”</h2>
+    <h4 ><strong>“ We recognize and promote the talent and effort of the best developers, designers and web agencies in the world..”</strong></h4>
+    <h6>Post your site to be reviewed.....</h6>
     <!-- Adding a search form  -->
     <div class="col-sm-8 col-md-8 " style="margin: 4px auto;" >
 
@@ -13,10 +14,10 @@
   </div>
 </div>
 
-<div class="container-fluid" style="margin-top: 20px;">
+<div class="container-fluid" >
   <div class="row">
     {% for image_item in image_items %}
-    <div class="col-md-4 main-page d-flex">
+    <div class="col-md-3 main-page d-flex" style=" margin-top: 20px;">
      
         <div class="card card-cascade wider flex-fill">
             <a href="{% url 'projectdetails' image_item.id %}"><img class="card-img-top" src="{{image_item.pic.url}}" alt="Card image_item cap"></a>
